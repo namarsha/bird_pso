@@ -1,5 +1,5 @@
 import pygame
-from birdclass import Bird, Flock
+from birdclass import Bird, Flock, Border
 from sys import exit
 import random
 
@@ -10,7 +10,9 @@ pygame.display.set_caption('Bird Sim')
 clock = pygame.time.Clock() 
 
 
-flock_1 = Flock()
+
+border = Border()
+flock_1 = Flock(border, 350)
 
 game_running = True
 while(game_running):
@@ -42,7 +44,7 @@ while(game_running):
 #Step 4: Update screen with black background so that birds don't become worms. DONE 
 #LATER: Improve movement and update image so that squares fade over time
 
-#Step 5: 
+#Step 5: Create border on screen. Border will be class object.
 
 
 #Step 5: Start to implement actual swarm techniques. 

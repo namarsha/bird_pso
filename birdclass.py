@@ -1,14 +1,26 @@
 import random
 import pygame
 
-class Bird():
+class Border():
+	# Border has a top, bottom, left side, and right side
 	def __init__(self):
+		self.top = 100
+		self.bottom = 150
+		self.left = 70
+		self.right = 300
 
-		self.speed_multiplier = 10 # if this number is too low, birds turn into worms
 
-		#birds have position
-		self.x_pos = random.randint(0, 800)
-		self.y_pos = random.randint(0, 400)
+
+class Bird():
+	def __init__(self, known_border):
+
+		self.known_border = known_border
+
+		self.speed_multiplier = 2 # if this number is too low, birds turn into worms
+
+		#birds have position, starting position is inside border
+		self.x_pos = random.randint(self.known_border.left, self.known_border.right)
+		self.y_pos = random.randint(self.known_border.top, self.known_border.bottom)
 
 		#they have color and size, which I abbreviate as form and are instantiated as pygame surfaces
 		self.form = pygame.Surface((5,5))
@@ -31,18 +43,31 @@ class Bird():
 		self.x_vel = random.randint(-1,1) * self.speed_multiplier
 		self.y_vel = random.randint(-1,1) * self.speed_multiplier
 
+	def reverse_direction(self):
+		self.x_vel = self.x_vel * -1
+		self.y_vel = self.y_vel * -1
+
 	def get_position(self):
 			return (self.x_pos, self.y_pos)
+
+	def is_in_border(self):
+		cond_1 = self.x_pos >= self.known_border.left and self.x_pos <= self.known_border.right
+		cond_2 = self.y_pos >= self.known_border.top and self.y_pos <= self.known_border.bottom
+		return cond_1 and cond_2
 
 		#they are also dynamic creatures so they need a setter function
 
 	def move(self):
+
 		#change direction 50% of the time:
 		die = random.randint(1,6)
 		if die >= 3:
 			self.change_velocity()
+		#check for border crossing and then update:
 		self.x_pos = self.x_pos + self.x_vel
 		self.y_pos = self.y_pos + self.y_vel
+		if not self.is_in_border():
+			self.reverse_direction()
 
 	def get_form(self):
 		return self.form 
@@ -50,13 +75,13 @@ class Bird():
 
 
 class Flock():
-	def __init__(self, num_birds=5):
+	def __init__(self, known_border, num_birds=5):
 
 		self.list_of_birds = []
 
 		for i in range(num_birds):
 
-			bird_instance = Bird()
+			bird_instance = Bird(known_border)
 			self.list_of_birds.append(bird_instance)
 
 	def get_list_of_birds(self):
