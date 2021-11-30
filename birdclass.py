@@ -4,6 +4,8 @@ import pygame
 class Bird():
 	def __init__(self):
 
+		self.speed_multiplier = 10 # if this number is too low, birds turn into worms
+
 		#birds have position
 		self.x_pos = random.randint(0, 800)
 		self.y_pos = random.randint(0, 400)
@@ -13,8 +15,11 @@ class Bird():
 		self.form.fill('White')
 
 		#they have individual velocities in both the x and y direction; these velocities are random for now
-		self.x_vel = random.randint(-10, 10)
-		self.y_vel = random.randint(-10, 10)
+		# self.x_vel = random.randint(-10, 10)
+		# self.y_vel = random.randint(-10, 10)
+
+		self.x_vel = random.randint(-1,1) * self.speed_multiplier
+		self.y_vel = random.randint(-1,1) * self.speed_multiplier
 
 	def get_x_velocity(self):
 		return self.x_vel
@@ -22,8 +27,9 @@ class Bird():
 	def get_y_velocity(self):
 		return self.y_vel
 	
-	def change_velocity():
-			pass
+	def change_velocity(self):
+		self.x_vel = random.randint(-1,1) * self.speed_multiplier
+		self.y_vel = random.randint(-1,1) * self.speed_multiplier
 
 	def get_position(self):
 			return (self.x_pos, self.y_pos)
@@ -31,11 +37,16 @@ class Bird():
 		#they are also dynamic creatures so they need a setter function
 
 	def move(self):
+		#change direction 50% of the time:
+		die = random.randint(1,6)
+		if die >= 3:
+			self.change_velocity()
 		self.x_pos = self.x_pos + self.x_vel
 		self.y_pos = self.y_pos + self.y_vel
 
 	def get_form(self):
 		return self.form 
+
 
 
 class Flock():
