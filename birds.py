@@ -12,7 +12,9 @@ clock = pygame.time.Clock()
 
 
 border = Border()
-flock_1 = Flock(border, 350)
+flock_1 = Flock(border, 250)
+
+Color_line=(255,0,0)
 
 game_running = True
 while(game_running):
@@ -23,6 +25,7 @@ while(game_running):
 			print("Bye! Thanks for simulating!")
 			exit()
 
+	pygame.draw.line(screen,Color_line,(border.get_left(), border.get_top()),(border.get_right(), border.get_top()))
 	flock = flock_1.get_list_of_birds() # get the list of birds of flock 1
 	#assign each bird to its x y pos
 	for bird in flock:
@@ -45,6 +48,7 @@ while(game_running):
 #LATER: Improve movement and update image so that squares fade over time
 
 #Step 5: Create border on screen. Border will be class object.
+#5a: birds are escaping border. Diagnose and correct. -- quick fix: alter speed multiplier so that birds have less of a chance of inadvertently jumping the border
 
 
 #Step 5: Start to implement actual swarm techniques. 

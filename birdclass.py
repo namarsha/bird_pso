@@ -5,9 +5,21 @@ class Border():
 	# Border has a top, bottom, left side, and right side
 	def __init__(self):
 		self.top = 100
-		self.bottom = 150
-		self.left = 70
-		self.right = 300
+		self.bottom = 350
+		self.left = 40
+		self.right = 550
+
+	def get_top(self):
+		return self.top
+
+	def get_left(self):
+		return self.left
+
+	def get_bottom(self):
+		return self.bottom
+
+	def get_right(self):
+		return self.right
 
 
 
@@ -16,7 +28,7 @@ class Bird():
 
 		self.known_border = known_border
 
-		self.speed_multiplier = 2 # if this number is too low, birds turn into worms
+		self.speed_multiplier = 0.75 
 
 		#birds have position, starting position is inside border
 		self.x_pos = random.randint(self.known_border.left, self.known_border.right)
@@ -59,15 +71,16 @@ class Bird():
 
 	def move(self):
 
-		#change direction 50% of the time:
-		die = random.randint(1,6)
-		if die >= 3:
+		#change direction 33% of the time:
+		die = random.randint(1,100)
+		if die <= 5:
 			self.change_velocity()
 		#check for border crossing and then update:
 		self.x_pos = self.x_pos + self.x_vel
 		self.y_pos = self.y_pos + self.y_vel
 		if not self.is_in_border():
 			self.reverse_direction()
+
 
 	def get_form(self):
 		return self.form 
