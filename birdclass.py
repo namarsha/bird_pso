@@ -83,10 +83,8 @@ class Bird():
 		if not self.is_in_border():
 			self.reverse_direction()
 
-
 	def get_form(self):
 		return self.form 
-
 
 	def distance_to_all_other_birds(self, flock):
 		distances = []
@@ -106,7 +104,6 @@ class Bird():
 		distances_of_nearest_birds = self.distance_to_all_other_birds(flock)
 		return distances_of_nearest_birds[:3]
 
-
 	def get_average_xy_velocity_of_nearest_neighbors(self, flock, num_nearest_neighbors=3):
 		average_x_velocity = 0
 		average_y_velocity = 0
@@ -119,12 +116,11 @@ class Bird():
 		average_y_velocity = average_y_velocity / num_nearest_neighbors
 		return (average_x_velocity, average_y_velocity)
 
-
-
-
-
-
-
+	def update_velocity_according_to_nearest_neighbors(self, flock):
+		update_rate = .10
+		avg_vel = self.get_average_xy_velocity_of_nearest_neighbors(flock)
+		self.x_vel += update_rate * avg_vel[0]
+		self.y_vel += update_rate * avg_vel[1]
 
 
 

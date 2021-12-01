@@ -26,10 +26,13 @@ while(game_running):
 			exit()
 
 	pygame.draw.line(screen,Color_line,(border.get_left(), border.get_top()),(border.get_right(), border.get_top()))
-	flock = flock_1.get_list_of_birds() # get the list of birds of flock 1
+	print(f'flock_1 is a {type(flock_1)}')
+	flock1 = flock_1.get_list_of_birds() # get the list of birds of flock 1
 	#assign each bird to its x y pos
-	for bird in flock:
+	for bird in flock1:
 		bird.move()
+		#update velocity according to nearest neighbors:
+		bird.update_velocity_according_to_nearest_neighbors(flock_1)
 		screen.blit(bird.get_form(), (bird.get_position()))
 
 	pygame.display.update()
@@ -53,9 +56,11 @@ while(game_running):
 
 #Step 5: Start to implement actual swarm techniques. 
 #5a implement euclidean distance between birds. DONE
-#5b: identify nearest neighbor based on euclidean distance... 
+#5b: identify nearest neighbor based on euclidean distance... DONE
 	#I can see this already getting rather complex. Is it the case that every bird must have an awareness of every other bird? If so, every
 	#bird's memory is a effectively a len(flock - 1) long vector... so, for 350 birds, I'll have to track 350**2 distances...
 
 
 #Step 6: When birds move, they adjust their velocity based on the closest three birds to them. 
+#6a: Identify three closest birds and take average velocity DONE
+#6b: 
