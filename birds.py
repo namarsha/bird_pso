@@ -26,7 +26,6 @@ while(game_running):
 			exit()
 
 	pygame.draw.line(screen,Color_line,(border.get_left(), border.get_top()),(border.get_right(), border.get_top()))
-	print(f'flock_1 is a {type(flock_1)}')
 	flock1 = flock_1.get_list_of_birds() # get the list of birds of flock 1
 	#assign each bird to its x y pos
 	for bird in flock1:

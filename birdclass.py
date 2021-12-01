@@ -30,7 +30,7 @@ class Bird():
 
 		self.known_border = known_border
 
-		self.speed_multiplier = 0.29 
+		self.speed_multiplier = .75 
 
 		#birds have position, starting position is inside border
 		self.x_pos = random.randint(self.known_border.left, self.known_border.right)
@@ -117,7 +117,7 @@ class Bird():
 		return (average_x_velocity, average_y_velocity)
 
 	def update_velocity_according_to_nearest_neighbors(self, flock):
-		update_rate = .10
+		update_rate = .01
 		avg_vel = self.get_average_xy_velocity_of_nearest_neighbors(flock)
 		self.x_vel += update_rate * avg_vel[0]
 		self.y_vel += update_rate * avg_vel[1]
