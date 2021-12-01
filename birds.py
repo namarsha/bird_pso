@@ -52,8 +52,10 @@ while(game_running):
 
 
 #Step 5: Start to implement actual swarm techniques. 
-#5a implement euclidean distance between birds.
+#5a implement euclidean distance between birds. DONE
 #5b: identify nearest neighbor based on euclidean distance... 
 	#I can see this already getting rather complex. Is it the case that every bird must have an awareness of every other bird? If so, every
-	#bird's memory is a effectively a len(bird) long vector...
+	#bird's memory is a effectively a len(flock - 1) long vector... so, for 350 birds, I'll have to track 350**2 distances...
 
+
+#Step 6: When birds move, they adjust their velocity based on the closest three birds to them. 

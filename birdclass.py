@@ -36,7 +36,7 @@ class Bird():
 		self.x_pos = random.randint(self.known_border.left, self.known_border.right)
 		self.y_pos = random.randint(self.known_border.top, self.known_border.bottom)
 
-		#they have color and size, which I abbreviate as form and are instantiated as pygame surfaces
+		#they have color and size, which I abbreviate as 'form' and are instantiated as pygame surfaces
 		self.form = pygame.Surface((5,5))
 		self.form.fill('White')
 
@@ -88,9 +88,6 @@ class Bird():
 		return self.form 
 
 
-
-
-
 	def distance_to_all_other_birds(self, flock):
 		distances = []
 		list_of_birds = flock.get_list_of_birds()
@@ -98,12 +95,35 @@ class Bird():
 			if bird != self:
 				bird_pos = bird.get_position()
 				self_pos = self.get_position()
-				print(bird_pos)
-				print(self_pos)
 
 				distance = dist(bird_pos, self_pos)
-				distances.append(distance)
-				print(distances)
+				distances.append((bird, distance))
+		distances = sorted(distances, key = lambda x: x[1])
+		return distances
+
+	def get_neighboring_birds(self, flock):
+		k = 3 # how many neighbors to get
+		distances_of_nearest_birds = self.distance_to_all_other_birds(flock)
+		return distances_of_nearest_birds[:3]
+
+
+	def get_average_xy_velocity_of_nearest_neighbors(self, flock, num_nearest_neighbors=3):
+		average_x_velocity = 0
+		average_y_velocity = 0
+		distances = self.get_neighboring_birds(flock)
+		for elem in distances:
+			bird = elem[0] #grab the first element of each tuple, i.e. the bird object
+			average_x_velocity += bird.get_x_velocity()
+			average_y_velocity += bird.get_y_velocity()
+		average_x_velocity = average_x_velocity / num_nearest_neighbors
+		average_y_velocity = average_y_velocity / num_nearest_neighbors
+		return (average_x_velocity, average_y_velocity)
+
+
+
+
+
+
 
 
 
