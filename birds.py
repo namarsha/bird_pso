@@ -47,10 +47,13 @@ while(game_running):
 #Step 4: Update screen with black background so that birds don't become worms. DONE 
 #LATER: Improve movement and update image so that squares fade over time
 
-#Step 5: Create border on screen. Border will be class object.
+#Step 5: Create border on screen. Border will be class object. DONE
 #5a: birds are escaping border. Diagnose and correct. -- quick fix: alter speed multiplier so that birds have less of a chance of inadvertently jumping the border
 
 
 #Step 5: Start to implement actual swarm techniques. 
 #5a implement euclidean distance between birds.
+#5b: identify nearest neighbor based on euclidean distance... 
+	#I can see this already getting rather complex. Is it the case that every bird must have an awareness of every other bird? If so, every
+	#bird's memory is a effectively a len(bird) long vector...
 

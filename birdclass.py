@@ -1,5 +1,7 @@
 import random
 import pygame
+import numpy as np
+from math import dist
 
 class Border():
 	# Border has a top, bottom, left side, and right side
@@ -28,7 +30,7 @@ class Bird():
 
 		self.known_border = known_border
 
-		self.speed_multiplier = 0.75 
+		self.speed_multiplier = 0.29 
 
 		#birds have position, starting position is inside border
 		self.x_pos = random.randint(self.known_border.left, self.known_border.right)
@@ -60,7 +62,7 @@ class Bird():
 		self.y_vel = self.y_vel * -1
 
 	def get_position(self):
-			return (self.x_pos, self.y_pos)
+			return [self.x_pos, self.y_pos]
 
 	def is_in_border(self):
 		cond_1 = self.x_pos >= self.known_border.left and self.x_pos <= self.known_border.right
@@ -87,6 +89,25 @@ class Bird():
 
 
 
+
+
+	def distance_to_all_other_birds(self, flock):
+		distances = []
+		list_of_birds = flock.get_list_of_birds()
+		for bird in list_of_birds:
+			if bird != self:
+				bird_pos = bird.get_position()
+				self_pos = self.get_position()
+				print(bird_pos)
+				print(self_pos)
+
+				distance = dist(bird_pos, self_pos)
+				distances.append(distance)
+				print(distances)
+
+
+
+
 class Flock():
 	def __init__(self, known_border, num_birds=5):
 
@@ -99,6 +120,10 @@ class Flock():
 
 	def get_list_of_birds(self):
 		return self.list_of_birds
+
+
+
+
 
 
 
